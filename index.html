@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <link rel="stylesheet" href="css.css" />
+  <title>Northwind - Customer</title>
+</head>
+<body>
+ 
+<div ng-controller="customersCtrl">
+ <p>
+    <label>Search</label>
+    <input type="Search" name="" placeholder="type to Search" ng-model="q">
+ </p>
+ <p>
+ </p>
+  <select ng-model="pagesize" 
+    ng-options="opt as opt for opt in pagesizes"
+    ng-change="changeAction()" ></select>
+  <label>Page {{currentpage+1}} From {{pagenumber}}</label>
+ <p>
+  <table>
+    <tr>
+        <th>No</th>
+        <th>ID</th>
+        <th><a href="" ng-click="boolCompanyName=ordering(boolCompanyName,'CompanyName');">
+          Company Name</a></th>
+        <th><a href="" ng-click="ord='ContactName';boolContactName=!boolContactName; ordstatus=boolContactName">
+          Contact Name</a></th>
+        <th><a href="" ng-click="ord='ContactTitle';boolContactTitle=!boolContactTitle; ordstatus=boolContactTitle">
+          Contact Title</a></th>
+        <th><a href="" ng-click="ord='Address';boolAddress=!boolAddress; ordstatus=boolAddress">
+          Address</a></th>
+        <th><a href="" ng-click="ord='City';boolCity=!boolCity; ordstatus=boolCity">
+          City</a></th>
+        <th><a href="" ng-click="ord='PostalCode';boolPostalCode=!boolPostalCode; ordstatus=boolPostalCode">
+          Postal Code</a></th>
+        <th><a href="" ng-click="ord='Country';boolCountry=!boolCountry; ordstatus=boolCountry">
+          Country</a></th>
+        <th><a href="" ng-click="ord='Phone';boolPhone=!boolPhone; ordstatus=boolPhone">
+          Phone</a></th>
+        <th><a href="" ng-click="ord='Fax';boolFax=!boolFax; ordstatus=boolFax">
+          Fax</a></th>
+    </tr>
+    <tr ng-repeat="x in (hasil = (customers|filter:q | orderBy:ord:ordstatus))" 
+        ng-if="$index >=(currentpage*pagesize) && $index < ((currentpage+1)*pagesize)" >
+      <td>{{$index+1}}</td>
+      <td>{{x.Id}}</td>
+      <td>{{x.CompanyName}}</td>
+      <td>{{x.ContactName}}</td>
+      <td>{{x.ContactTitle}}</td>
+      <td>{{x.Address}}</td>
+      <td>{{x.City}}</td>
+      <td>{{x.PostalCode}}</td>
+      <td>{{x.Country}}</td>
+      <td>{{x.Phone}}</td>
+      <td>{{x.Fax}}</td>
+    </tr>
+    <tr ng-if="hasil.length==0">
+      <td colspan="10">Results not found</td>
+    </tr>
+  </table>
+ </p>
+ <p>Rows : {{hasil.length}}</p>
+ <p>
+    <button ng-click="currentpage=0">First</button>
+    <button ng-click="paging(0)">Prev</button>
+    <button ng-click="paging(1)">Next</button>
+    <button ng-click="currentpage=pagenumber-1">Last</button>
+ </p>
+</div>
+ <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
